@@ -13,3 +13,6 @@ class Solution:
 
         min = float("-infinity")
         max = float("infinity")
+        def valid(node,left,right):
+            if not node:
+                return True
