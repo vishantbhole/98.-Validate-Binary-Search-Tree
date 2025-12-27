@@ -22,3 +22,35 @@ class Solution:
             return (valid(node.left, left, node.val) and
                     valid(node.right,node.val, right))
         return valid(root, min, max)
+
+# Helper function to build a binary tree from a list (BFS style)
+def buildTree(values):
+    if not values:
+        return None
+
+    nodes = [TreeNode(v) if v is not None else None for v in values]
+    kids = nodes[::-1]
+    root = kids.pop()
+
+    for node in nodes:
+        if node:
+            if kids:
+                node.left = kids.pop()
+            if kids:
+                node.right = kids.pop()
+
+    return root
+
+
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Example 1: valid BST
+    root = [2,1,3]
+    root_valid = buildTree(root)
+    print("Output is :", sol.isValidBST(root_valid))
+
+    # Example 2: invalid BST
+    root1 = [5,1,4,None,None,3,6]
+    root_invalid = buildTree(root1)
+    print("Output is :", sol.isValidBST(root_invalid))
